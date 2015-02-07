@@ -32,6 +32,56 @@
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
         <h3>
+<a id="demo" class="anchor" href="#demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo</h3>
+
+<p>Find the latest working version of the player <a href="http://dashif.org/reference/players/javascript/index.html">here</a>.</p>
+
+<h3>
+<a id="what" class="anchor" href="#what" aria-hidden="true"><span class="octicon octicon-link"></span></a>What</h3>
+
+<p>dash.js is an initiative to establish a production quality framework for building video and audio players that play back MPEG-DASH content using client-side JavaScript libraries leveraging the <a href="https://dvcs.w3.org/hg/html-media/raw-file/tip/media-source/media-source.html">Media Source Extensions</a> API set as defined by the W3C. The core objectives of this project are to build an open source Javascript library which</p>
+
+<ul>
+<li>Is codec agnostic</li>
+<li>Allows for multiple segment encapsulation types</li>
+<li>Allows for multiple content protection schema</li>
+<li>Allows for simple substitution of switching rules, loading methods and fail-over/down logic</li>
+</ul>
+
+<p>The initial implementation will build upon this flexibility to produce a player which matches the <a href="http://dashif.org/guidelines/DASH264-base-v09.pdf">DASH264</a> recommendation of the DASH-IF, namely:</p>
+
+<ul>
+<li>Uses H.264 for video and HE-AAC for audio</li>
+<li>Base Media File Format segments</li>
+<li>isoff-on-demand:2011 and isoff-live2011 profile support</li>
+<li>time-aligned, closed-GOP segments whose duration does not vary more than 25% from the mean</li>
+<li>SMPTE-TT captioning</li>
+<li>CENC DRM support</li>
+</ul>
+
+<h3>
+<a id="why" class="anchor" href="#why" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why</h3>
+
+<p>HTTP Adaptive streaming provides for robust streaming, with random access, that adjusts to changes in throughput to avoid rebuffering. Use of HTTP:80 allows for transit across most networks, proxies and firewalls. MPEG-DASH provides an ISO standard <a href="http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=57623">ISO/IEC 23009-1</a> which combines the best features of Apple's HLS, Adobe's HDS and Microsoft Smooth Streaming in to a modern format that is flexible enough to handle mutiple addressing schemes, TS and BMFF support for segment encapsulation,  multi-track video and audio, timed metadata and advertising insertion. Rather than require that each browser support DASH directly, the Media Source Extensions expose an interface to the HTML Media element to allow the ad-hoc addition of media segments. This allows client-side script to parse manifests, request segments and apply switching logic while leaving the video decoding and rendering to the browser. The combination is a flexible and powerful platform on which to build cross-platform media players. </p>
+
+<h3>
+<a id="by-whom" class="anchor" href="#by-whom" aria-hidden="true"><span class="octicon octicon-link"></span></a>By whom</h3>
+
+<p>This project is organized by the <a href="http://dashif.org">Dash Industry Forum</a>, a non-profit industry association established to catalyze the adoption of MPEG-DASH. <a href="http://dashif.org/members/">Membership</a> includes many large media companies, including Microsoft, Qualcomm, Ericsson, Adobe, Sony, Cisco, Intel and Akamai. </p>
+
+<h3>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h3>
+
+<p>All code in this repository is covered by the <a href="http://opensource.org/licenses/BSD-3-Clause">BSD-3 license</a>. This permissive license allows redistribution and use in source and binary forms, with or without modification, without cost or any license fees. It is our intent that you use this code to freely build DASH players for personal, company internal, or commercial purposes.</p>
+
+<h3>
+<a id="email-list" class="anchor" href="#email-list" aria-hidden="true"><span class="octicon octicon-link"></span></a>Email list</h3>
+
+<p>This project communicates via the 'dashjs' Google group.  You may apply to join the email list by visiting <a href="https://groups.google.com/d/forum/dashjs">https://groups.google.com/d/forum/dashjs</a>.</p>
+
+<hr>
+
+<h3>
 <a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
 
 <p>Will was here. This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
