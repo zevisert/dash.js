@@ -206,7 +206,7 @@ function DashMetrics(config) {
             .reduce(add))
         .reduce(add);
 
-        var asGiB = (bytes) => bytes / 1024 / 1024 / 1024;
+        var asGiB = (bytes) => bytes / ( Math.pow(1024, 3) );
 
         return asGiB(total) * costPerGB;
     }
