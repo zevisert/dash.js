@@ -38,7 +38,7 @@ app.controller('DashController', function ($scope, sources, contributors, dashif
 
 
     $scope.selectedItem = {
-        url: "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd"
+        url: "http://rdmedia.bbc.co.uk/dash/ondemand/testcard/1/client_manifest-events.mpd"
     };
 
     sources.query(function (data) {
@@ -133,7 +133,8 @@ app.controller('DashController', function ($scope, sources, contributors, dashif
             ratio:          {data: [], selected: false, color: '#329d61', label: 'Audio Ratio'},
             download:       {data: [], selected: false, color: '#44c248', label: 'Audio Download Rate (Mbps)'},
             latency:        {data: [], selected: false, color: '#326e88', label: 'Audio Latency (ms)'},
-            droppedFPS:     {data: [], selected: false, color: '#004E64', label: 'Audio Dropped FPS'}
+            droppedFPS:     {data: [], selected: false, color: '#004E64', label: 'Audio Dropped FPS'},
+            cost:           {data: [], selected: true, color: '#2B3A42', label: 'Audio Cost'}
         },
         video:{
             buffer:         {data: [], selected: true, color: '#00589d', label: 'Video Buffer Level'},
@@ -143,7 +144,8 @@ app.controller('DashController', function ($scope, sources, contributors, dashif
             ratio:          {data: [], selected: false, color: '#00CCBE', label: 'Video Ratio'},
             download:       {data: [], selected: false, color: '#FF6700', label: 'Video Download Rate (Mbps)'},
             latency:        {data: [], selected: false, color: '#329d61', label: 'Video Latency (ms)'},
-            droppedFPS:     {data: [], selected: false, color: '#65080c', label: 'Video Dropped FPS'}
+            droppedFPS:     {data: [], selected: false, color: '#65080c', label: 'Video Dropped FPS'},
+            cost:           {data: [], selected: true, color: '#2B3A42', label: 'Video Cost'}
         }
     };
 
@@ -181,6 +183,7 @@ app.controller('DashController', function ($scope, sources, contributors, dashif
     $scope.videoDownload = "";
     $scope.videoRatioCount = 0;
     $scope.videoRatio = "";
+    $scope.videoCost = "$0.0000";
 
     $scope.audioBitrate = 0;
     $scope.audioIndex = 0;
@@ -194,6 +197,7 @@ app.controller('DashController', function ($scope, sources, contributors, dashif
     $scope.audioDownload = "";
     $scope.audioRatioCount = 0;
     $scope.audioRatio = "";
+    $scope.audioCost = "$0.0000";
 
 
     //Starting Options
@@ -793,11 +797,13 @@ app.controller('DashController', function ($scope, sources, contributors, dashif
             var index = $scope.player.getQualityFor(type);
             var bitrate = repSwitch ? Math.round(dashMetrics.getBandwidthForRepresentation(repSwitch.to, periodIdx) / 1000) : NaN;
             var droppedFPS = dashMetrics.getCurrentDroppedFrames(metrics) ? dashMetrics.getCurrentDroppedFrames(metrics).droppedFrames : 0;
+            var cost = dashMetrics.getCumulativeCost(metrics, document.getElementById("data-cost").value);
 
             $scope[type + "BufferLength"] = bufferLevel;
             $scope[type + "MaxIndex"] = maxIndex;
             $scope[type + "Bitrate"] = bitrate;
             $scope[type + "DroppedFrames"] = droppedFPS;
+            $scope[type + "Cost"] = `$${cost.toFixed(4)}`;
 
             var httpMetrics = calculateHTTPMetrics(type, dashMetrics.getHttpRequests(metrics));
             if (httpMetrics) {
@@ -811,6 +817,7 @@ app.controller('DashController', function ($scope, sources, contributors, dashif
                 $scope.plotPoint('index', type, index);
                 $scope.plotPoint('bitrate', type, bitrate);
                 $scope.plotPoint('droppedFPS', type, droppedFPS);
+                $scope.plotPoint('cost', type, cost);
                 if (httpMetrics) {
                     $scope.plotPoint('download', type, httpMetrics.download[type].average.toFixed(2));
                     $scope.plotPoint('latency', type, httpMetrics.latency[type].average.toFixed(2));

@@ -233,6 +233,17 @@
                     </label>
                 </div>
             </div>
+            <div class="options-item">
+                <div class="options-item-title">Metrics Settings</div>
+                <div class="options-item-body">
+                    <label data-toggle="tooltip" data-placement="right"
+                           title="The cost to use per GiB of data downloaded by the player.">
+                        Data Cost: $
+                        <input  type="number" id="data-cost" autocomplete="off" name="data-cost" value="0.99">
+                         / GiB
+                    </label>
+                </div>
+            </div>
 
         </div>
 
@@ -337,6 +348,11 @@
                                 <label class="text-primary" for="videoRatioCB" data-toggle="tooltip" data-placement="top"
                                   title="The minimum, average and maximum ratio of the segment playback time to total download time over the last 4 segments">Ratio (min|avg|max) :</label> {{videoRatio}}
                             </div>
+                            <div class="text-success">
+                                <input id="videoCostCB" type="checkbox" ng-model="chartState.video.cost.selected" ng-change="enableChartByName('cost', 'video')" >
+                                <label class="text-primary" for="videocostCB" data-toggle="tooltip" data-placement="top"
+                                  title="The cost of each downloaded segment of video">Cost (total) :</label> {{videoCost}}
+                            </div>
                         </div>
                       </div>
                       <div class="tab-pane fade" id="audioStatsTab">
@@ -381,6 +397,11 @@
                                 <input id="audioRatioCB" type="checkbox" ng-model="chartState.audio.ratio.selected" ng-change="enableChartByName('ratio', 'audio')" >
                                 <label class="text-primary" for="audioRatioCB" data-toggle="tooltip" data-placement="top"
                                   title="The minimum, average and maximum ratio of the segment playback time to total download time over the last 4 segments">Ratio (min|avg|max) :</label> {{audioRatio}}
+                            </div>
+                            <div class="text-success">
+                                <input id="audioCostCB" type="checkbox" ng-model="chartState.audio.cost.selected" ng-change="enableChartByName('cost', 'audio')" >
+                                <label class="text-primary" for="audioCostCB" data-toggle="tooltip" data-placement="top"
+                                  title="The cost of each downloaded segment of video">Cost (total) :</label> {{audioCost}}
                             </div>
                         </div>
                       </div>

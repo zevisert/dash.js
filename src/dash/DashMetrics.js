@@ -188,6 +188,31 @@ function DashMetrics(config) {
 
     /**
      * @param {MetricsList} metrics
+     * @param {Number} costPerGB
+     * @returns {*}
+     * @memberof module:DashMetrics
+     * @instance
+     */
+    function getCumulativeCost(metrics, costPerGB) {
+        if (!metrics || !metrics.HttpList) {
+            return 0;
+        }
+
+        const add = (x1, x2) => x1 + x2;
+        const total = getHttpRequests(metrics).map(request =>
+            (!!request.trace ? request.trace : {b: 0}).map(trace =>
+                trace.b
+                .reduce(add))
+            .reduce(add))
+        .reduce(add);
+
+        var asGiB = (bytes) => bytes / 1024 / 1024 / 1024;
+
+        return asGiB(total) * costPerGB;
+    }
+
+    /**
+     * @param {MetricsList} metrics
      * @param {string} metricName
      * @returns {*}
      * @memberof module:DashMetrics
@@ -387,6 +412,7 @@ function DashMetrics(config) {
         getCurrentBufferLevel: getCurrentBufferLevel,
         getCurrentHttpRequest: getCurrentHttpRequest,
         getHttpRequests: getHttpRequests,
+        getCumulativeCost: getCumulativeCost,
         getCurrentDroppedFrames: getCurrentDroppedFrames,
         getCurrentSchedulingInfo: getCurrentSchedulingInfo,
         getCurrentDVRInfo: getCurrentDVRInfo,
