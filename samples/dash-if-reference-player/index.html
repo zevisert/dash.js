@@ -238,9 +238,13 @@
                 <div class="options-item-body">
                     <label data-toggle="tooltip" data-placement="right"
                            title="The cost to use per GiB of data downloaded by the player.">
-                        Data Cost: $
+                        Data Cost: $ / GiB
                         <input  type="number" id="data-cost" autocomplete="off" name="data-cost" value="0.99">
-                         / GiB
+                    </label>
+                    <label data-toggle="tooltip" data-placement="bottom"
+                           title="The maximum amount willing to expend in terms of cost of data to watch this video.">
+                        Max Payment: $
+                        <input type="number" id="data-payment" autocomplete="off" name="data-payment" value="10.00">
                     </label>
                 </div>
             </div>

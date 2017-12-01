@@ -46,7 +46,6 @@ function CustomCostRuleClass() {
 
     function getMaxIndex(rulesContext) {
 
-        // here you can get some informations aboit metrics for example, to implement the rule
         const metricsModel = MetricsModel(context).getInstance();
         const dashMetrics = DashMetrics(context).getInstance();
         const manifestModel = ManifestModel(context).getInstance();
@@ -61,7 +60,7 @@ function CustomCostRuleClass() {
 
         // Total cost of representation i
         const T = rulesContext.getRepresentationInfo().mediaInfo.bitrateList.map(b => 
-            document.getElementById('data-cost').value * asGiB(b.bandwidth * mpd.mediaPresentationDuration)
+            document.getElementById('data-cost').value * asGiB(b.bandwidth) * mpd.mediaPresentationDuration
         );
 
         // Cost for one second of media in representation i assuming each second is the same amount of data
@@ -75,15 +74,21 @@ function CustomCostRuleClass() {
         const Q = S.map(S_i => S_i * (mpd.mediaPresentationDuration - time));
 
         // Next segment should be the highest quality representation (i, index) such that we can keep this quality without cost overrun
-        const C_i = Q.filter(Q_i => R + Q_i < 10).length - 1;
+        const m = document.getElementById('data-payment').value;
+        const C_i = Q.filter(Q_i => R + Q_i < m).length - 1;
 
+        /* TODO: The allowed cost (m) is for the whole stream - video, audio, subtitles, ads, etc - but 
+        *  we're currently only comparing it against mediaType. So theoretically, if m = $1.00, video allowance
+        *  is $1, audio allowance is $1, subtitle allowance (phew) is also $1. Need to keep Q_i(?) in mind for different
+        *  mediaTypes. 
+        */
         if (C_i >= 0) {
-            // We can still watch the whole video
+            // We can still watch the whole stream
             let currentIndex = rulesContext.getRepresentationInfo().quality;
 
             if (C_i !== currentIndex) {
                 debug.log(`[CustomRules][${mediaType}][CostRule] Requesting change to quality: ${C_i} because ${
-                    C_i > currentIndex ? "video can have better quality" : "video is going to be too expensive"
+                    C_i > currentIndex ? "player can have better quality" : "stream is going to be too expensive"
                 }`);
                 return SwitchRequest(context).create(C_i, {name: CustomCostRuleClass.__dashjs_factory_name}, SwitchRequest.PRIORITY.STRONG);
             } // else already at the ideal cost/quality
