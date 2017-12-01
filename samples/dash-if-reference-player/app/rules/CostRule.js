@@ -31,10 +31,7 @@
 
 var CustomCostRule;
 
-function CustomCostRuleClass(config) {
-
-    const myConfig = config || {};
-    const adapter = myConfig.adapter;
+function CustomCostRuleClass() {
 
     let factory = dashjs.FactoryMaker;
     let SwitchRequest = factory.getClassFactoryByName('SwitchRequest');
