@@ -513,13 +513,14 @@ app.controller('DashController', function ($scope, sources, contributors, dashif
     $scope.toggleUseCustomABRRules = function () {
 
         if ($scope.customABRRulesSelected) {
+            let rules = dashjs.FactoryMaker.getClassFactoryByName('ABRRulesCollection');
             $scope.player.useDefaultABRRules(false);
-            $scope.player.addABRCustomRule('qualitySwitchRules', 'DownloadRatioRule', DownloadRatioRule);
-            $scope.player.addABRCustomRule('qualitySwitchRules', 'ThroughputRule', CustomThroughputRule);
+            //$scope.player.addABRCustomRule(rules.QUALITY_SWITCH_RULES, 'DownloadRatioRule', DownloadRatioRule);
+            $scope.player.addABRCustomRule(rules.QUALITY_SWITCH_RULES, 'CostRule', CustomCostRule);
         } else {
             $scope.player.useDefaultABRRules(true);
-            $scope.player.removeABRCustomRule('DownloadRatioRule');
-            $scope.player.removeABRCustomRule('ThroughputRule');
+            //$scope.player.removeABRCustomRule('DownloadRatioRule');
+            $scope.player.removeABRCustomRule('CostRule');
         }
     };
 

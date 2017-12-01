@@ -31,7 +31,7 @@
     <script src="../../contrib/akamai/controlbar/ControlBar.js"></script>
     <script src="app/main.js"></script>
     <script src="app/rules/DownloadRatioRule.js"></script>
-    <script src="app/rules/ThroughputRule.js"></script>
+    <script src="app/rules/CostRule.js"></script>
 
 </head>
 <body ng-controller="DashController" >
@@ -351,7 +351,7 @@
                             <div class="text-success">
                                 <input id="videoCostCB" type="checkbox" ng-model="chartState.video.cost.selected" ng-change="enableChartByName('cost', 'video')" >
                                 <label class="text-primary" for="videocostCB" data-toggle="tooltip" data-placement="top"
-                                  title="The cost of each downloaded segment of video">Cost (total) :</label> {{videoCost}}
+                                  title="The cost of each downloaded segment of video">Cost (data received) :</label> {{videoCost}}
                             </div>
                         </div>
                       </div>

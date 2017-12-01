@@ -189,7 +189,7 @@ function DashMetrics(config) {
     /**
      * @param {MetricsList} metrics
      * @param {Number} costPerGB
-     * @returns {*}
+     * @returns {Number}
      * @memberof module:DashMetrics
      * @instance
      */
